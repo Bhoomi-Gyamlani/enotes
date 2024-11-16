@@ -13,18 +13,30 @@ function Signup(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { name, email, password } = credentials;
+    const { name, email, password, cpassword  } = credentials;
 
-    const response = await fetch("http://localhost:5000/api/auth/createUser", {
+
+    // Ensure the passwords match
+    if (password !== cpassword) {
+      props.showAlert("Passwords do not match", "danger");
+      return;
+    }
+
+    try {
+    const response = await fetch("http://localhost:5005/api/auth/createUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name, email, password }),
     });
+
     const json = await response.json();
     console.log(json);
+
+     // Check if the response indicates success
     if (json.success) {
+
       //Save the token
       localStorage.setItem("token", json.authToken);
       navigate("/");
@@ -32,7 +44,12 @@ function Signup(props) {
     } else {
       props.showAlert("Invalid Details", "danger");
     }
+  } catch (error) {
+    console.error("Error during signup:", error);
+    props.showAlert("An error occurred. Please try again.", "danger");
+  }
   };
+
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };

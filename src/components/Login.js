@@ -6,7 +6,14 @@ const Login = (props) => {
   let navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/login", {
+
+      // Basic form validation
+      if (!credentials.email || !credentials.password) {
+        props.showAlert("Please enter both email and password", "danger");
+        return;
+      }
+  
+    const response = await fetch("http://localhost:5005/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
