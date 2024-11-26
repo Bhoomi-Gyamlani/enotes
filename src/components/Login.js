@@ -26,6 +26,7 @@ const Login = (props) => {
     const json = await response.json();
     console.log(json);
     if (json.success) {
+
       //Save the token
       localStorage.setItem("token", json.authToken);
       props.showAlert("Logged in Successfully ", "success");
@@ -71,7 +72,7 @@ const Login = (props) => {
             id="password"
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" aria-label="Submit Login">
           Submit
         </button>
       </form>

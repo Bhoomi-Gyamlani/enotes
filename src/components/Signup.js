@@ -115,7 +115,7 @@ function Signup(props) {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" aria-label="Submit Signup" >
           Submit
         </button>
       </form>
