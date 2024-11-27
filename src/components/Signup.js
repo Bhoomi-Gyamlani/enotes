@@ -13,12 +13,8 @@ function Signup(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { name, email, password, cpassword } = credentials;
+    const { name, email, password, cpassword  } = credentials;
 
-    if (password.length < 5) {
-      props.showAlert("Password should be at least 5 characters", "danger");
-      return;
-    }
 
     // Ensure the passwords match
     if (password !== cpassword) {
@@ -27,34 +23,31 @@ function Signup(props) {
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:5006/api/auth/createUser",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, email, password }),
-        }
-      );
+    const response = await fetch("http://localhost:5006/api/auth/createUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
 
-      const json = await response.json();
-      console.log(json);
+    const json = await response.json();
+    console.log(json);
 
-      // Check if the response indicates success
-      if (json.success) {
-        
-        //Save the token
-        localStorage.setItem("token", json.authToken);
-        navigate("/");
-        props.showAlert("Account Created Successfully ", "success");
-      } else {
-        props.showAlert("Invalid Details", "danger");
-      }
-    } catch (error) {
-      console.error("Error during signup:", error);
-      props.showAlert("An error occurred. Please try again.", "danger");
+     // Check if the response indicates success
+    if (json.success) {
+
+      //Save the token
+      localStorage.setItem("token", json.authToken);
+      navigate("/");
+      props.showAlert("Account Created Successfully ", "success");
+    } else {
+      props.showAlert("Invalid Details", "danger");
     }
+  } catch (error) {
+    console.error("Error during signup:", error);
+    props.showAlert("An error occurred. Please try again.", "danger");
+  }
   };
 
   const onChange = (e) => {
@@ -122,11 +115,7 @@ function Signup(props) {
             required
           />
         </div>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          aria-label="Submit Signup"
-        >
+        <button type="submit" className="btn btn-primary" aria-label="Submit Signup" >
           Submit
         </button>
       </form>
