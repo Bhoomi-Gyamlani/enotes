@@ -38,7 +38,6 @@ const EditNoteModal = ({ note = {}, onChange, onClose, onSave }) => {
       id="editNoteModal"
       tabIndex="-1"
       aria-labelledby="editNoteModalLabel"
-      aria-hidden="true"
       ref={modalRef}
     >
       <div className="modal-dialog">
