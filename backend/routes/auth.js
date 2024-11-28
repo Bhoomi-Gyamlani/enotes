@@ -8,7 +8,7 @@ const fetchUser = require("../middleware/fetchUser");
 
 const JWT_SECRET = "Bhoomiiscreatingaapp";
 const app = express();
-const PORT = 5000;
+const PORT = 5001;
 
 app.use(cors());
 app.use(express.json())
